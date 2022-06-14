@@ -20,7 +20,6 @@ function getCookie(cname) {
 }
 
 if (document.cookie.includes("darkMode=true")) {
-    console.log(document.cookie);
     document.body.classList.add("dark-mode");
     navbar.classList.add("nav-dark-mode");
 }
