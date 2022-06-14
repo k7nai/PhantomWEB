@@ -2,6 +2,7 @@ let darkButton = document.getElementById("dark-button");
 let navbar = document.getElementsByClassName("mainbar")[0];
 let darkMode = false
 
+// This code by https://www.w3schools.com/js/js_cookies.asp
 function getCookie(cname) {
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
