@@ -1,5 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
 
+.themeContainer {
+    position: fixed;
+    top: 18px;
+    left: 8px;
+}
+
+.dark-mode {
+    background-color: #272932;
+}
+
+.mainbar.nav-dark-mode{
+    background-color: #24262e;
+    box-shadow: 0 0 0.3125em #2d2f38;
+}
+
 .mainbar {
     width: 31.25em;
     height: 1.625em;
