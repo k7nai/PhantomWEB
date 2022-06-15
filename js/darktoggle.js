@@ -26,7 +26,9 @@ if (document.cookie.includes("darkMode=true")) {
 
 darkButton.addEventListener("click", function() {
     darkMode = !(getCookie("darkMode") === 'true');
+    console.log(darkMode);
     document.cookie = "darkMode=" + darkMode + "; expires=Fri, 31 Dec 9999 23:59:59 GMT; SameSite=None; Secure";
+    console.log(document.cookie)
     document.body.classList.toggle("dark-mode");
     navbar.classList.toggle("nav-dark-mode");
 });

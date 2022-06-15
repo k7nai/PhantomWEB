@@ -1,4 +1,9 @@
-.test{
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+.test {
     display: flex;
     justify-content: center;
+    color: #8e40e7;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 2em;
 }
