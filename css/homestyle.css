@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
 
-.themeContainer {
-    position: fixed;
-    top: 18px;
-    left: 8px;
+
+.themeContainer{
+    margin-top: 10px;
+    margin-left: 0.1px;
 }
 
 .dark-mode {
@@ -12,7 +12,12 @@
 
 .mainbar.nav-dark-mode{
     background-color: #24262e;
-    box-shadow: 0 0 0.3125em #2d2f38;
+    box-shadow: 0 0 0.3125em #2a2c33;
+}
+
+.con{
+    display: flex;
+    justify-content: center;
 }
 
 .mainbar {
@@ -23,6 +28,7 @@
     box-shadow: 0 0 0.3125em #ccc;
     margin: 0 auto;
     padding: 0.9375em;
+    position: absolute;
 }
 
 .nactive {
