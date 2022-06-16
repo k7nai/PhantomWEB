@@ -10,4 +10,4 @@
 - Mobile support 📱
 - Flawless load times ⏲️
 
-This website is being hosted at: [https://imnotphantom](https://imnotphantom.tk "https://imnotphantom.tk")
+This website is being hosted at: [https://imnotphantom.tk](https://imnotphantom.tk "https://imnotphantom.tk")
