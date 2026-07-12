@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HI OPEN THE PRESENTTT!!!</title>
+    <style>
+        :root {
+            --pink-light: #ffb6c1;
+            --pink-main: #ff85a2;
+            --pink-dark: #f06286;
+            --blue-main: #1a365d;
+            --blue-light: #2b6cb0;
+            --bg-gradient: linear-gradient(135deg, #fbcfe8 0%, #dbeafe 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+        }
+
+        h1 {
+            color: var(--blue-main);
+            /* Increased margin to prevent overlap during the 3D spin */
+            margin-bottom: 5rem; 
+            font-size: 2.2rem;
+            font-weight: 800;
+            transition: opacity 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 20;
+        }
+
+        /* --- 3D Present Container --- */
+        .gift-perspective {
+            perspective: 1200px;
+            perspective-origin: 50% 0%;
+            width: 200px;
+            height: 200px;
+            margin-bottom: 2rem;
+        }
+
+        .gift-box-3d {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            transform-style: preserve-3d;
+            /* Default isometric viewing angle */
+            transform: rotateX(60deg) rotateZ(45deg);
+            /* Smoothly transitions for the spin effect */
+            transition: transform 1.2s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.5s ease;
+            cursor: pointer;
+        }
+
+        /* --- Hover Animation (Spins 360 degrees and lifts up) --- */
+        .gift-box-3d:hover {
+            /* 45deg (base) + 360deg = 405deg */
+            transform: rotateX(60deg) rotateZ(405deg) translateZ(30px);
+        }
+
+        /* Common 3D Face Setup */
+        .face {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background-color: var(--pink-main);
+            border: 2px solid var(--pink-dark);
+            backface-visibility: hidden; /* Makes the inside of the box invisible */
+        }
+
+        /* Flat Ribbons wrapping around all sides of the box */
+        .face::before, .face::after {
+            content: '';
+            position: absolute;
+            background-color: var(--blue-main);
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        /* Vertical Ribbon */
+        .face::before {
+            top: 0; left: 85px; width: 30px; height: 100%;
+        }
+        /* Horizontal Ribbon */
+        .face::after {
+            top: 85px; left: 0; width: 100%; height: 30px;
+        }
+
+        /* Positioning ALL 6 sides to build a fully enclosed solid cube */
+        .top    { transform: translateZ(100px); background-color: var(--pink-light); }
+        .bottom { transform: rotateX(180deg) translateZ(100px); background-color: var(--pink-dark); filter: brightness(0.6); }
+        .front  { transform: rotateX(-90deg) translateZ(100px); background-color: var(--pink-dark); }
+        .back   { transform: rotateX(90deg) translateZ(100px); background-color: var(--pink-dark); filter: brightness(0.8); }
+        .right  { transform: rotateY(90deg) translateZ(100px); background-color: var(--pink-dark); filter: brightness(0.9); }
+        .left   { transform: rotateY(-90deg) translateZ(100px); background-color: var(--pink-dark); filter: brightness(0.8); }
+
+        /* --- Detailed 3D Ribbon on Top --- */
+        .bow-3d {
+            position: absolute;
+            top: 65px;
+            left: 65px;
+            width: 70px;
+            height: 70px;
+            transform: translateZ(1px); /* Sits slightly above the top face */
+            transform-style: preserve-3d;
+            z-index: 10;
+        }
+
+        /* Center knot */
+        .bow-center {
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            background-color: var(--blue-light);
+            border-radius: 50%;
+            top: 22px;
+            left: 22px;
+            z-index: 12;
+            box-shadow: inset -3px -3px 5px rgba(0,0,0,0.2), 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        /* Ribbon loops */
+        .bow-loop {
+            position: absolute;
+            width: 45px;
+            height: 45px;
+            border: 8px solid var(--blue-main);
+            border-radius: 50% 50% 0 50%;
+            top: 12px;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+        }
+
+        .bow-loop.left-loop {
+            left: -10px;
+            transform: rotate(-45deg) rotateY(30deg);
+        }
+
+        .bow-loop.right-loop {
+            left: 35px;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(45deg) rotateY(-30deg);
+        }
+
+        /* Ribbon tails hanging down */
+        .bow-tail {
+            position: absolute;
+            width: 20px;
+            height: 55px;
+            background-color: var(--blue-main);
+            top: 35px;
+            z-index: 9;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 85%, 0 100%);
+        }
+
+        .bow-tail.left-tail {
+            left: 8px;
+            transform: rotate(35deg);
+        }
+
+        .bow-tail.right-tail {
+            left: 42px;
+            transform: rotate(-35deg);
+        }
+
+        /* --- Box Opening Animation Trigger --- */
+        .gift-box-3d.open {
+            transform: rotateX(70deg) rotateZ(720deg) scale(0);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* --- Reveal Card & Fixed Button Layout --- */
+        .reveal-card {
+            display: none;
+            opacity: 0;
+            transform: scale(0.7);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 100%;
+            margin-top: -3rem; /* Pulls the button up nicely after the box disappears */
+        }
+
+        .reveal-card.show {
+            display: block;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .btn-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn-open {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 320px;
+            padding: 16px 32px;
+            background-color: var(--blue-main);
+            color: #ffffff;
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(26, 54, 93, 0.35);
+            transition: all 0.3s ease;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-open:hover {
+            background-color: var(--blue-light);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(26, 54, 93, 0.45);
+        }
+
+        .btn-open:active {
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Message Box -->
+        <h1 id="title-text">HI OPEN THE PRESENTTT!!!</h1>
+        
+        <!-- 3D Top Down Present Viewport -->
+        <div class="gift-perspective" id="gift-container">
+            <div class="gift-box-3d" id="gift" onclick="openPresent()">
+                <!-- All 6 faces of the cube to make it a solid object -->
+                <div class="face top">
+                    <!-- Ribbon attached to the top face -->
+                    <div class="bow-3d">
+                        <div class="bow-loop left-loop"></div>
+                        <div class="bow-loop right-loop"></div>
+                        <div class="bow-center"></div>
+                        <div class="bow-tail left-tail"></div>
+                        <div class="bow-tail right-tail"></div>
+                    </div>
+                </div>
+                <div class="face bottom"></div>
+                <div class="face front"></div>
+                <div class="face back"></div>
+                <div class="face right"></div>
+                <div class="face left"></div>
+            </div>
+        </div>
+
+        <!-- Hidden Container for Button -->
+        <div class="reveal-card" id="revealCard">
+            <div class="btn-wrapper">
+                <a href="https://docs.google.com/document/d/1TuKDjB5ntKKoEPyiTsuqiyye9lnvtERr0lRk3RyH588/edit?usp=sharing" 
+                   target="_blank" 
+                   class="btn-open">
+                   Click meeee
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openPresent() {
+            const gift = document.getElementById('gift');
+            const giftContainer = document.getElementById('gift-container');
+            const revealCard = document.getElementById('revealCard');
+            const titleText = document.getElementById('title-text');
+
+            // 1. Shrink and spin out the 3D box
+            gift.classList.add('open');
+            
+            // 2. Smoothly swap text headlines
+            titleText.style.opacity = '0';
+            
+            setTimeout(() => {
+                giftContainer.style.display = 'none'; // Clear the space where the box was
+                titleText.innerText = "ouuu what is this 👀";
+                titleText.style.opacity = '1';
+                
+                // 3. Reveal formatted button link area
+                revealCard.classList.add('show');
+            }, 600); // Wait for the animation to finish
+        }
+    </script>
+</body>
+</html>
